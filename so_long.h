@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:50:41 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/12 14:06:28 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:09:42 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,14 @@ int		check_map_name(char *map_path);
 char	*get_raw_map(char *map_path);
 
 // CHECK_MAP //
-int		check_final_map(char **map, t_vars *vars);
+int		check_final_map(char **map, t_vars *vars, char *raw_map);
+int		check_is_closed(char **map, t_vars *vars);
+int		check_is_rectangular(char **map, t_vars *vars);
+int		check_min_size(t_vars *vars);
+int		check_min_type_char(char *raw_map);
 
 // UTILS SL //
 int		ft_strnrcmp(char *s1, const char *s2, int n);
-int		is_rectangular(char **map, t_vars *vars);
-int		check_is_closed(char **map, t_vars *vars);
+int		num_strchr(char c, char *str);
 
 #endif

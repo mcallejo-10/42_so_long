@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:11:26 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/12 17:01:46 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:10:03 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_raw_map(char *map_path)
 	}
 	close(fd);
 	free(line);
-	printf("Mapa leído:\n%s\nhasta aquí", raw_map);
+	printf("Mapa leído:\n%s\n", raw_map);
 	return (raw_map);
 }
 
@@ -62,9 +62,9 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 		return (NULL);
 	}
 	map = ft_split(raw_map, '\n');
-	if (!check_final_map(map, vars))
+	if (!check_final_map(map, vars, raw_map))
 	{
-		write(1, "ERROR 3 \n", 8);
+		write(1, "Error\n", 6);
 		return (NULL);
 	}
 	return (map);

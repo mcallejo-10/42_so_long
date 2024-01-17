@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:16:06 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/11 18:11:31 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:12:06 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,21 @@ int	ft_strnrcmp(char *s1, const char *s2, int n)
 	if (i < n)
 		return (-1);
 	return (0);
+}
+
+int	num_strchr(char c, char *str)
+{
+	int		n;
+	int		i;
+
+	i = 0;
+	n = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			n++;
+		i++;
+	}
+	printf("num de caractersPEC: %i\n", n);
+	return (n);
 }

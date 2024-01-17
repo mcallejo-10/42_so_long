@@ -33,7 +33,7 @@ $(MLX):
 	$(CC) $(OBJECTS) $(MLX_FLAGS) $(LIBFT_FLAGS) $(CFLAGS) -o $(NAME)
 
 clean:
-	rm -rf $(OBJECTS) ./libft/obj @$(MAKE) -C clean ./minilibx
+	rm -rf $(OBJECTS) ./libft/obj
 
 fclean: clean
 	rm -rf $(NAME)
