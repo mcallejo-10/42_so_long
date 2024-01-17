@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:16:06 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 14:12:06 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:21:25 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ int	num_strchr(char c, char *str)
 			n++;
 		i++;
 	}
-	printf("num de caractersPEC: %i\n", n);
+	printf("num de caractersPEC: %i\n%i\n", n, i);
 	return (n);
 }

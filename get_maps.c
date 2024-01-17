@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:11:26 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 14:10:03 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 17:32:49 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,15 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 		write(1, "Error\n", 6);
 		return (NULL);
 	}
+	if (!check_exit())
 	return (map);
 }
+char	**get_final_map(int argc, char **argv, t_vars *vars)
+{
+	char	**map;
+
+	vars->map = get_map(argc, argv, vars);
+	check_exit(vars->map)
+	free
+	get get_map
+	return map
