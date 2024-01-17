@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:50:41 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 14:09:42 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:55:53 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,17 @@ typedef struct s_vars
 	char	**map;
 	int		height;
 	int		width;
-	int		player_x;
-	int		player_y;
+	int		x;
+	int		y;
 }	t_vars;
 // SO LONG //
 
 // GET_MAPS //
+char	**get_final_map(int argc, char **argv, t_vars *vars);
 char	**get_map(int argc, char **argv, t_vars *vars);
 int		check_map_name(char *map_path);
 char	*get_raw_map(char *map_path);
+int		check_exit(char **map, int x, int y);
 
 // CHECK_MAP //
 int		check_final_map(char **map, t_vars *vars, char *raw_map);

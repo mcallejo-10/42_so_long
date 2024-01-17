@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:11:26 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 17:32:49 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:36:53 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,51 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 		write(1, "Error\n", 6);
 		return (NULL);
 	}
-	if (!check_exit())
 	return (map);
 }
+
+int	check_exit(char **map, int x, int y)
+{
+	if (map[y][x] == 'E')
+		return (1);
+	if (map[y][x] == '1')
+		return (0);
+	map[y][x] = '1';
+	if (check_exit(map, x + 1, y) == 1)
+		return (1);
+	if (check_exit(map, x - 1, y) == 1)
+		return (1);
+	if (check_exit(map, x, y + 1) == 1)
+		return (1);
+	if (check_exit(map, x, y - 1) == 1)
+		return (1);
+	return (1);
+}
+
 char	**get_final_map(int argc, char **argv, t_vars *vars)
 {
-	char	**map;
-
+	vars->x = 0;
+	vars->y = 0;
 	vars->map = get_map(argc, argv, vars);
-	check_exit(vars->map)
-	free
-	get get_map
-	return map
+	while (vars->map[vars->y])
+	{
+		vars->x = 0;
+		while (vars->map[vars->y][vars->x])
+		{
+			if (vars->map[vars->y][vars->x] == 'P')
+				break ;
+			vars->x++;
+		}
+		if (vars->map[vars->y][vars->x] == 'P')
+				break ;
+		vars->y++;
+	}
+	printf("x: %i\ny: %i\n", vars->x, vars->y);
+	printf("HOLAAA\n");
+	if (!check_exit(vars->map, vars->x, vars->y))
+		return (write(1, "Error_ff\n", 9), NULL);
+	free(vars->map);
+	vars->map = get_map(argc, argv, vars);
+	printf("ADDIOOOOSS\n");
+	return (vars->map);
+}

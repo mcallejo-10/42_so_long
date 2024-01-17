@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:11:33 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 17:28:18 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:06:25 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	main(int argc, char **argv)
 {
 	t_vars	*vars;
-
+	
 	vars = malloc(sizeof(t_vars));
 	get_final_map(argc, argv, vars);
 	return (0);
