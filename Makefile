@@ -1,13 +1,14 @@
 NAME = so_long
 
-SOURCES = so_long.c get_maps.c check_map.c utils_sl.c 
+SOURCES = so_long.c get_maps.c check_map.c utils_sl.c window_management.c game_management.c \
+		exit_free.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
-#incluiremos los include -I aquí o en %.o=%.c∫
-CFLAGS = -Wall #-Werror -Wextra
+#incluiremos los include -I aquí o en %.o=%.c
+CFLAGS = -Wall -Werror -Wextra
 
-CC = cc -g
+CC = gcc -g 
 
 LIBFT = libft/libft.h
 MLX = minilibx/libmlx.h
@@ -23,20 +24,22 @@ LIBFT_FLAGS = -L ./libft -lft
 
 all: $(NAME)
 
-$(LIBFT):
-	@$(MAKE) -C ./libft
-
 $(MLX):
-	@$(MAKE) -C ./minilibx
+	@$(MAKE) -C ./minilibx 
+ 
+$(LIBFT):
+	@$(MAKE) -C ./libft 
 	
  $(NAME): $(OBJECTS) $(LIBFT) $(MLX) ./so_long.h
-	$(CC) $(OBJECTS) $(MLX_FLAGS) $(LIBFT_FLAGS) $(CFLAGS) -o $(NAME)
+	$(CC) $(OBJECTS) $(MLX_FLAGS) -L ./libft -lft $(CFLAGS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJECTS) ./libft/obj
+	@$(MAKE) -C ./minilibx clean
 
 fclean: clean
 	rm -rf $(NAME)
+	@$(MAKE) -C ./libft fclean
 
 re: fclean all
 

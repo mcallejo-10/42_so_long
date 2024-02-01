@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:16:06 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 16:21:25 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:03:33 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,37 @@ int	num_strchr(char c, char *str)
 			n++;
 		i++;
 	}
-	printf("num de caractersPEC: %i\n%i\n", n, i);
 	return (n);
+}
+
+int	map_strchr(char c, char **map)
+{
+	int		j;
+	int		n;
+
+	n = 0;
+	j = 0;
+	while (map[j])
+	{
+		n = n + num_strchr(c, map[j]);
+		j++;
+	}
+	return (n);
+}
+
+void	p_position(t_vars *vars)
+{
+	while (vars->map[vars->y])
+	{
+		vars->x = 0;
+		while (vars->map[vars->y][vars->x])
+		{
+			if (vars->map[vars->y][vars->x] == 'P')
+				break ;
+			vars->x++;
+		}
+		if (vars->map[vars->y][vars->x] == 'P')
+			break ;
+		vars->y++;
+	}
 }

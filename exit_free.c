@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   exit_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 18:11:33 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/02/01 17:00:12 by mcallejo         ###   ########.fr       */
+/*   Created: 2024/01/31 16:18:42 by mcallejo          #+#    #+#             */
+/*   Updated: 2024/02/01 17:21:19 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx/mlx.h"
 #include "so_long.h"
 
-int	main(int argc, char **argv)
+char	*free_map(char **map)
 {
-	t_vars	*vars;
-	t_img	*img;
+	int	i;
 
-	img = malloc(sizeof(t_img));
-	if (!img)
-		return (1);
-	vars = malloc(sizeof(t_vars));
-	if (!vars)
-		return (free(img), 1);
-	if (!get_final_map(argc, argv, vars))
-		return (0);
-	init_game(vars, img);
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 	return (0);
+}
+
+int	exit_me(t_vars *vars)
+{
+	free_map(vars->map);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit (0);
 }

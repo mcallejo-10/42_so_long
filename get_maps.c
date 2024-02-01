@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:11:26 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 21:36:53 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:26:23 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,15 @@ char	*get_raw_map(char *map_path)
 	line = get_next_line(fd);
 	if (!line)
 		return (NULL);
-	raw_map = ft_strdup("");
+	raw_map = malloc(sizeof(char *) * 1);
+	raw_map[0] = '\0';
 	while (line)
 	{
-		raw_map = ft_strjoin(raw_map, line);
-		free (line);
+		raw_map = gnl_strjoin(raw_map, line);
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	free(line);
-	printf("Mapa leído:\n%s\n", raw_map);
 	return (raw_map);
 }
 
@@ -53,65 +52,53 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 
 	if (argc != 2 || !check_map_name(argv[1]))
 	{
-		write(1, "Error1\n", 6);
+		write(1, "Error\nInvalid file\n", 20);
+		exit (1);
 	}
 	raw_map = get_raw_map(argv[1]);
 	if (!raw_map)
 	{
-		write(1, "Error2\n", 6);
-		return (NULL);
+		write(1, "Error\n", 6);
+		exit (1);
 	}
 	map = ft_split(raw_map, '\n');
 	if (!check_final_map(map, vars, raw_map))
 	{
-		write(1, "Error\n", 6);
-		return (NULL);
+		write(1, "Error\nInvalid map\n", 19);
+		free(raw_map);
+		exit (1);
 	}
+	free(raw_map);
 	return (map);
 }
 
-int	check_exit(char **map, int x, int y)
+void	fill_map(char **map, int x, int y, t_vars *vars)
 {
-	if (map[y][x] == 'E')
-		return (1);
-	if (map[y][x] == '1')
-		return (0);
-	map[y][x] = '1';
-	if (check_exit(map, x + 1, y) == 1)
-		return (1);
-	if (check_exit(map, x - 1, y) == 1)
-		return (1);
-	if (check_exit(map, x, y + 1) == 1)
-		return (1);
-	if (check_exit(map, x, y - 1) == 1)
-		return (1);
-	return (1);
+	if (x < 0 || x > vars->width || y < 0 || y > vars->height
+		|| map[y][x] == '1' || map[y][x] == 'F')
+		return ;
+	map[y][x] = 'F';
+	fill_map(map, x - 1, y, vars);
+	fill_map(map, x + 1, y, vars);
+	fill_map(map, x, y - 1, vars);
+	fill_map(map, x, y + 1, vars);
 }
 
 char	**get_final_map(int argc, char **argv, t_vars *vars)
 {
 	vars->x = 0;
 	vars->y = 0;
+	vars->moves = 0;
 	vars->map = get_map(argc, argv, vars);
-	while (vars->map[vars->y])
+	p_position(vars);
+	fill_map(vars->map, vars->x, vars->y, vars);
+	if (map_strchr('E', vars->map) > 0 || map_strchr('C', vars->map) > 0)
 	{
-		vars->x = 0;
-		while (vars->map[vars->y][vars->x])
-		{
-			if (vars->map[vars->y][vars->x] == 'P')
-				break ;
-			vars->x++;
-		}
-		if (vars->map[vars->y][vars->x] == 'P')
-				break ;
-		vars->y++;
+		write(1, "Error\nIvalid exit\n", 19);
+		free_map(vars->map);
+		return (NULL);
 	}
-	printf("x: %i\ny: %i\n", vars->x, vars->y);
-	printf("HOLAAA\n");
-	if (!check_exit(vars->map, vars->x, vars->y))
-		return (write(1, "Error_ff\n", 9), NULL);
-	free(vars->map);
+	free_map(vars->map);
 	vars->map = get_map(argc, argv, vars);
-	printf("ADDIOOOOSS\n");
 	return (vars->map);
 }

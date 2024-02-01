@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:37:16 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/01/17 20:55:57 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:48:29 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_min_size(t_vars *vars)
 	return (1);
 }
 
-int	check_min_type_char(char *raw_map)
+int	check_min_type_char(char *raw_map, t_vars *vars)
 {
 	int		i;
 
@@ -84,7 +84,8 @@ int	check_min_type_char(char *raw_map)
 	}
 	if (num_strchr('P', raw_map) != 1 || num_strchr('E', raw_map) != 1)
 		return (0);
-	if (num_strchr('C', raw_map) < 1)
+	vars->collect = num_strchr('C', raw_map);
+	if (vars->collect < 1)
 		return (0);
 	return (1);
 }
@@ -97,7 +98,7 @@ int	check_final_map(char **map, t_vars *vars, char *raw_map)
 		return (0);
 	if (!check_min_size(vars))
 		return (0);
-	if (!check_min_type_char(raw_map))
+	if (!check_min_type_char(raw_map, vars))
 		return (0);
 	return (1);
 }
