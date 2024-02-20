@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 15:22:48 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/02/01 17:21:53 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:03:11 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,101 +14,93 @@
 
 void	move_up(t_vars *vars)
 {
-	if (vars->map[vars->y - 1][vars->x] == 'E' && vars->collect == 0)
-	{
-		write(1, "YOU WIN!\n", 9);
-		exit_me(vars);
-	}
-	if (vars->map[vars->y - 1][vars->x] != '1' \
-		&& vars->map[vars->y - 1][vars->x] != 'E')
+	if (vars->map[vars->y - 1][vars->x] != '1')
 	{
 		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->grass_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 		vars->y--;
 		vars->moves++;
 		ft_printf("Moves: %i\n", vars->moves);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->up_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->up,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
 }
 
 void	move_down(t_vars *vars)
 {
-	if (vars->map[vars->y + 1][vars->x] == 'E' && vars->collect == 0)
-	{
-		write(1, "YOU WIN!\n", 9);
-		exit_me(vars);
-	}
-	if (vars->map[vars->y + 1][vars->x] != '1' \
-		&& vars->map[vars->y + 1][vars->x] != 'E')
+	if (vars->map[vars->y + 1][vars->x] != '1')
 	{
 		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->grass_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 		vars->y++;
 		vars->moves++;
 		ft_printf("Moves: %i\n", vars->moves);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->down_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->down,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
 }
 
 void	move_left(t_vars *vars)
 {
-	if (vars->map[vars->y][vars->x - 1] == 'E' && vars->collect == 0)
-	{
-		write(1, "YOU WIN!\n", 9);
-		exit_me(vars);
-	}
-	if (vars->map[vars->y][vars->x - 1] != '1' \
-		&& vars->map[vars->y][vars->x - 1] != 'E')
+	if (vars->map[vars->y][vars->x - 1] != '1')
 	{
 		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->grass_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 		vars->x--;
 		vars->moves++;
 		ft_printf("Moves: %i\n", vars->moves);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->left_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->left,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
 }
 
 void	move_right(t_vars *vars)
 {
-	if (vars->map[vars->y][vars->x + 1] == 'E' && vars->collect == 0)
-	{
-		write(1, "YOU WIN!\n", 9);
-		exit_me(vars);
-	}
-	if (vars->map[vars->y][vars->x + 1] != '1' \
-		&& vars->map[vars->y][vars->x + 1] != 'E')
+	if (vars->map[vars->y][vars->x + 1] != '1')
 	{
 		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->grass_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 		vars->x++;
 		vars->moves++;
 		ft_printf("Moves: %i\n", vars->moves);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->right_path,
-			vars->x * vars->width, vars->y * vars->height);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->right,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
 }
 

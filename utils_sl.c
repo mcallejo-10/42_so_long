@@ -6,7 +6,7 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:16:06 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/02/01 17:03:33 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:15:21 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	map_strchr(char c, char **map)
 
 void	p_position(t_vars *vars)
 {
+	vars->pos_h = 32;
+	vars->pos_w = 32;
 	while (vars->map[vars->y])
 	{
 		vars->x = 0;

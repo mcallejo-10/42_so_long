@@ -6,14 +6,14 @@
 /*   By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:50:41 by mcallejo          #+#    #+#             */
-/*   Updated: 2024/02/01 17:20:46 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:08:26 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "./libft/libft.h"
+# include "./my_libft/libft.h"
 # include "./minilibx/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
@@ -32,16 +32,18 @@ typedef struct s_vars
 	int		width;
 	int		x;
 	int		y;
+	int		pos_h;
+	int		pos_w;
 	int		collect;
 	int		moves;
-	void	*right_path;
-	void	*left_path;
-	void	*down_path;
-	void	*up_path;
-	void	*house_path;
-	void	*grass_path;
-	void	*tree_path;
-	void	*cat_path;
+	void	*right;
+	void	*left;
+	void	*down;
+	void	*up;
+	void	*house;
+	void	*grass;
+	void	*tree;
+	void	*cat;
 	void	*img;
 }	t_vars;
 
@@ -64,14 +66,14 @@ void	fill_map(char **map, int x, int y, t_vars *vars);
 
 // CHECK_MAP //
 int		check_final_map(char **map, t_vars *vars, char *raw_map);
-int		check_is_closed(char **map, t_vars *vars);
+int		check_is_closed(char *raw_map);
 int		check_is_rectangular(char **map, t_vars *vars);
 int		check_min_size(t_vars *vars);
 int		check_min_type_char(char *raw_map, t_vars *vars);
 
 // WINDOW MANAGEMENT //
 void	put_image_struct(t_vars *vars, t_img *img);
-// void	change_image(t_vars *vars, t_img *img, char *path);
+void	put_image_struct_alan(t_vars *vars, t_img *img);
 void	background(t_vars *vars, t_img	*img);
 void	get_images(t_vars *vars, t_img	*img);
 void	init_game(t_vars *vars, t_img *img);
@@ -91,5 +93,7 @@ void	p_position(t_vars *vars);
 
 // EXIT_FREE //
 char	*free_map(char **map);
+int		exit_win(t_vars *vars);
 int		exit_me(t_vars *vars);
+int		error_exit(t_vars *vars);
 #endif

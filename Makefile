@@ -1,45 +1,52 @@
+#COLORS#
+GREEN = \033[1;92m
+RED = \033[1;91m
+NC = \033[0m
+YELLOW=\033[1;33m
+
 NAME = so_long
 
-SOURCES = so_long.c get_maps.c check_map.c utils_sl.c window_management.c game_management.c \
+SOURCES = main.c get_maps.c check_map.c utils_sl.c window_management.c game_management.c \
 		exit_free.c
 
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS = $(SOURCES:%.c=%.o)
 
-#incluiremos los include -I aquí o en %.o=%.c
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -I./
 
-CC = gcc -g 
+CC = gcc
 
-LIBFT = libft/libft.h
+LIBFT = my_libft/lft.h
 MLX = minilibx/libmlx.h
 
-INCLUDES = -I/Users/mirandacallejonhuertes/42cursus/so_long/minilibx/mlx
+MLX_FLAGS = -L ./minilibx -lmlx -framework OpenGL -framework AppKit 
 
-MLX_FLAGS = -L ./minilibx -lmlx -framework OpenGL -framework AppKit
+LIBFT_FLAGS = -L ./my_libft -lft
 
-LIBFT_FLAGS = -L ./libft -lft
+%.o: %.c 
+	$(CC) -c $< $(CFLAGS)  -o $@
+	@echo "$(YELLOW)Compiling... $(END)$(patsubst $(DIR_BUILD)%,%,$@)"
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
-
-all: $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
 
 $(MLX):
-	@$(MAKE) -C ./minilibx 
- 
+	@$(MAKE) -C ./minilibx --no-print-directory
+
 $(LIBFT):
-	@$(MAKE) -C ./libft 
-	
- $(NAME): $(OBJECTS) $(LIBFT) $(MLX) ./so_long.h
-	$(CC) $(OBJECTS) $(MLX_FLAGS) -L ./libft -lft $(CFLAGS) -o $(NAME)
+	@$(MAKE) -C ./my_libft --no-print-directory
+
+$(NAME): Makefile $(SOURCES)
+	$(CC) $(CFLAGS) $(MLX_FLAGS) $(SOURCES) $(LIBFT_FLAGS) -o $(NAME)
+	@echo "$(GREEN)SO_LONG DONE$(END)"
 
 clean:
-	rm -rf $(OBJECTS) ./libft/obj
-	@$(MAKE) -C ./minilibx clean
+	@rm -rf $(OBJECTS) 
+	@$(MAKE) -C ./my_libft clean --no-print-directory
+	@$(MAKE) -C ./minilibx clean --no-print-directory 
 
 fclean: clean
-	rm -rf $(NAME)
-	@$(MAKE) -C ./libft fclean
+	@rm -rf $(NAME)
+	@$(MAKE) -C ./my_libft fclean --no-print-directory
+	@$(MAKE) -C ./minilibx fclean --no-print-directory
 
 re: fclean all
 
